@@ -14,6 +14,19 @@ export default function NotaEditor() {
   const [texto, setTexto] = useState("");
   const [modalVisivel, setModalVisivel] = useState(false);
 
+  async function salvaNota() {
+    const umaNota = {
+      id: "1",
+      texto: texto,
+    };
+    await AsyncStorage.setItem(umaNota.id, umaNota.texto);
+    mostraNota();
+  }
+
+  async function mostraNota() {
+    console.log(await AsyncStorage.getItem("1"));
+  }
+
   return (
     <>
       <Modal
@@ -38,7 +51,10 @@ export default function NotaEditor() {
                 value={texto}
               />
               <View style={estilos.modalBotoes}>
-                <TouchableOpacity style={estilos.modalBotaoSalvar}>
+                <TouchableOpacity
+                  style={estilos.modalBotaoSalvar}
+                  onPress={() => salvaNota()}
+                >
                   <Text style={estilos.modalBotaoTexto}>Salvar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
