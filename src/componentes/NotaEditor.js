@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function NotaEditor() {
+export default function NotaEditor({ mostraNota }) {
   const [texto, setTexto] = useState("");
   const [modalVisivel, setModalVisivel] = useState(false);
 
@@ -30,8 +30,6 @@ export default function NotaEditor() {
       return 1;
     } else return todasChaves.length + 1;
   }
-
-  async function mostraNota() {}
 
   return (
     <>
