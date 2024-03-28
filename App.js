@@ -10,16 +10,19 @@ import NotaEditor from "./src/componentes/NotaEditor";
 import { Nota } from "./src/componentes/Nota";
 
 import { useEffect, useState } from "react";
-import { criaTabela } from "./src/servicos/Notas";
+import { buscaNotas, criaTabela } from "./src/servicos/Notas";
 
 export default function App() {
   useEffect(() => {
     criaTabela();
+    mostraNota();
   }, []);
   const [notas, setNotas] = useState([]);
   async function mostraNota() {
     // const todasChaves = await AsyncStorage.getAllKeys();
     // const todasNotas = await AsyncStorage.multiGet(todasChaves);
+
+    const todasNotas = await buscaNotas();
     setNotas(todasNotas);
     console.log(todasNotas);
   }
@@ -28,7 +31,7 @@ export default function App() {
     <SafeAreaView style={estilos.container}>
       <FlatList
         data={notas}
-        keyExtractor={(nota) => nota[0]}
+        keyExtractor={(nota) => nota.id}
         renderItem={(nota) => <Nota {...nota} />}
       />
       <NotaEditor mostraNota={mostraNota} />

@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { adicionaNota } from "../servicos/Notas";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function NotaEditor({ mostraNota }) {
@@ -20,10 +21,12 @@ export default function NotaEditor({ mostraNota }) {
   async function salvaNota() {
     // const novoId = await geraId();
     const umaNota = {
-      id: "1",
+      titulo: titulo,
+      categoria: categoria,
       texto: texto,
     };
-    console.log(umaNota);
+    await adicionaNota(umaNota);
+    // console.log(umaNota);
     // await AsyncStorage.setItem(umaNota.id, umaNota.texto);
     mostraNota();
   }
