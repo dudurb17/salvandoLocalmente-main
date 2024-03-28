@@ -9,7 +9,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { adicionaNota, atualizaNota } from "../servicos/Notas";
+import { adicionaNota, atualizaNota, removeNota } from "../servicos/Notas";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function NotaEditor({
@@ -77,6 +77,12 @@ export default function NotaEditor({
     setModalVisivel(false);
   }
 
+  async function deletaNota() {
+    await removeNota(notaSelecionada);
+    limpaModal();
+    mostraNota();
+  }
+
   return (
     <>
       <Modal
@@ -129,6 +135,18 @@ export default function NotaEditor({
                 >
                   <Text style={estilos.modalBotaoTexto}>Salvar</Text>
                 </TouchableOpacity>
+                {notaParaAtualizar ? (
+                  <TouchableOpacity
+                    style={estilos.modalBotaoDeletar}
+                    onPress={() => {
+                      deletaNota();
+                    }}
+                  >
+                    <Text style={estilos.modalBotaoTexto}>Deletar</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <></>
+                )}
                 <TouchableOpacity
                   style={estilos.modalBotaoCancelar}
                   onPress={() => {
