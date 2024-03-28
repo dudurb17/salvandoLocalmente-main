@@ -1,3 +1,4 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import {
   Modal,
@@ -8,28 +9,30 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function NotaEditor({ mostraNota }) {
+  const [titulo, setTitulo] = useState("");
+  const [categoria, setCategoria] = useState("Pessoal");
   const [texto, setTexto] = useState("");
   const [modalVisivel, setModalVisivel] = useState(false);
 
   async function salvaNota() {
-    const novoId = await geraId();
+    // const novoId = await geraId();
     const umaNota = {
-      id: novoId.toString(),
+      id: "1",
       texto: texto,
     };
     console.log(umaNota);
-    await AsyncStorage.setItem(umaNota.id, umaNota.texto);
+    // await AsyncStorage.setItem(umaNota.id, umaNota.texto);
     mostraNota();
   }
-  async function geraId() {
-    const todasChaves = await AsyncStorage.getAllKeys();
-    if (todasChaves <= 0) {
-      return 1;
-    } else return todasChaves.length + 1;
-  }
+  // async function geraId() {
+  //   const todasChaves = await AsyncStorage.getAllKeys();
+  //   if (todasChaves <= 0) {
+  //     return 1;
+  //   } else return todasChaves.length + 1;
+  // }
 
   return (
     <>
@@ -45,6 +48,25 @@ export default function NotaEditor({ mostraNota }) {
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={estilos.modal}>
               <Text style={estilos.modalTitulo}>Criar nota</Text>
+              <Text style={estilos.modalSubTitulo}>Titulo da nota</Text>
+              <TextInput
+                style={estilos.modalInput}
+                onChangeText={(novoTitulo) => setTitulo(novoTitulo)}
+                placeholder="Digite aqui seu titulo"
+                value={titulo}
+              />
+              <Text style={estilos.modalSubTitulo}>Categoria da nota</Text>
+              <View style={estilos.modalPicker}>
+                <Picker
+                  selectedValue={categoria}
+                  onValueChange={(novaCategoria) => setCategoria(novaCategoria)}
+                >
+                  <Picker.Item label="Pessoal" value="Pessoal" />
+                  <Picker.Item label="Trabalho" value="Trabalho" />
+                  <Picker.Item label="Outros" value="Outros" />
+                </Picker>
+              </View>
+
               <Text style={estilos.modalSubTitulo}>Conteúdo da nota</Text>
               <TextInput
                 style={estilos.modalInput}
@@ -54,6 +76,7 @@ export default function NotaEditor({ mostraNota }) {
                 placeholder="Digite aqui seu lembrete"
                 value={texto}
               />
+
               <View style={estilos.modalBotoes}>
                 <TouchableOpacity
                   style={estilos.modalBotaoSalvar}
