@@ -18,6 +18,7 @@ export default function App() {
     mostraNota();
   }, []);
   const [notas, setNotas] = useState([]);
+  const [notaSelecionada, setNotaSelecionada] = useState({});
   async function mostraNota() {
     // const todasChaves = await AsyncStorage.getAllKeys();
     // const todasNotas = await AsyncStorage.multiGet(todasChaves);
@@ -32,9 +33,15 @@ export default function App() {
       <FlatList
         data={notas}
         keyExtractor={(nota) => nota.id}
-        renderItem={(nota) => <Nota {...nota} />}
+        renderItem={(nota) => (
+          <Nota {...nota} setNotaSelecionada={setNotaSelecionada} />
+        )}
       />
-      <NotaEditor mostraNota={mostraNota} />
+      <NotaEditor
+        mostraNota={mostraNota}
+        notaSelecionada={notaSelecionada}
+        setNotaSelecionada={setNotaSelecionada}
+      />
       <StatusBar />
     </SafeAreaView>
   );
