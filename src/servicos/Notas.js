@@ -61,3 +61,17 @@ export async function removeNota(nota) {
     });
   });
 }
+
+export async function buscaNotasFiltro(categoria) {
+  return new Promise((resolve) => {
+    db.transaction((transaction) => {
+      transaction.executeSql(
+        "SELECT * FROM Notas WHERE categoria=?;",
+        [categoria],
+        (transaction, resultados) => {
+          resolve(resultados.rows._array);
+        }
+      );
+    });
+  });
+}

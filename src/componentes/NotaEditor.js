@@ -59,7 +59,8 @@ export default function NotaEditor({
       texto: texto,
       id: notaSelecionada.id,
     };
-    await atualizaNota(umaNota);
+    await atualizaNota(umaNddaadddota);
+    limpaModal();
     mostraNota();
   }
 
@@ -85,6 +86,7 @@ export default function NotaEditor({
 
   return (
     <>
+      
       <Modal
         animationType="slide"
         transparent={true}
