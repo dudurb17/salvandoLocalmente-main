@@ -43,6 +43,7 @@ export default function NotaEditor({
     await adicionaNota(umaNota);
     // console.log(umaNota);
     // await AsyncStorage.setItem(umaNota.id, umaNota.texto);
+    limpaModal();
     mostraNota();
   }
   // async function geraId() {
@@ -59,7 +60,7 @@ export default function NotaEditor({
       texto: texto,
       id: notaSelecionada.id,
     };
-    await atualizaNota(umaNddaadddota);
+    await atualizaNota(umaNota);
     limpaModal();
     mostraNota();
   }
@@ -86,7 +87,6 @@ export default function NotaEditor({
 
   return (
     <>
-      
       <Modal
         animationType="slide"
         transparent={true}
